@@ -44,4 +44,31 @@ contract Lottery {
                 )
             );
     }
+
+    function pickWinner() public restricted {
+        // stores index of winner int the array
+        uint256 index = random() % players.length;
+        // must use this to find the contract
+        address contractAddress = address(this);
+        // 0xabc17631d transfers all of the balance entered into the lottery and send it to that address
+        players[index].transfer(contractAddress.balance);
+        // resets the player address array so we can run the lottery once pickWinner is ran
+        // creates dynamic array with initial size of 0
+        players = new address payable[](0);
+    }
+
+    // enforces that nobody can call pickWinner except person who originally called contract
+    // modifiers are meant to reduce code we write
+    // names can be anything
+    modifier restricted() {
+        require(msg.sender == manager);
+        // like a target
+        // imagine the underscore being like take out the fn from the called fn and placing it where _ is
+        _;
+    }
+
+    // returns a list of aall players
+    function getPlayers() public view returns (address payable[] memory) {
+        return players;
+    }
 }
