@@ -14,7 +14,7 @@ pragma solidity ^0.8.17;
 contract Lottery {
     address public manager;
     // creates a dynamic array of only addresses
-    address[] public players;
+    address payable[] public players;
 
     // updates manager variable to the wallet of the contract creator
     constructor() {
@@ -27,7 +27,21 @@ contract Lottery {
     function enter() public payable {
         // require is used for validation, if false, fn is exited and no changes are made
         // basically saying require the wallet entering the lottery to send > x ether
-        require(msg.value > 0.00001 ether);
-        players.push(msg.sender);
+        require(
+            msg.value > 0.00001 ether,
+            "A minimum of 0.00001 ETH is required to enter the lottery"
+        );
+        // msg.sender has the type 'address' instead of 'address payable' so we must convert it into
+        // address payable before adding to array
+        players.push(payable(msg.sender));
+    }
+
+    function random() private view returns (uint256) {
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(block.difficulty, block.number, players)
+                )
+            );
     }
 }
