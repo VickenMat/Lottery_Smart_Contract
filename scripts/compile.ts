@@ -6,7 +6,7 @@ import path from 'path';
 // types are not available --> https://stackoverflow.com/a/42505940
 const solc = require('solc');
 
-const lotteryPath = path.resolve(__dirname, './', 'contracts', 'Lottery.sol');
+const lotteryPath = path.resolve(__dirname, '../', 'contracts', 'Lottery.sol');
 
 // If you are sure that no user input can reach your fs method calls, you should disable the rule for the offending line with :
 /* eslint-disable-next-line security/detect-non-literal-fs-filename -- Safe as no value holds user input */

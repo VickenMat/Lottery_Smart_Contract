@@ -1,6 +1,6 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
-const { abi, evm } = require('./compile');
+const { abi, evm } = require('compile'); // used to be ./compile to move back a directory
 
 const provider = new HDWalletProvider(
     'scare diary later practice toast dress liquid visual sorry kitchen debris say',
