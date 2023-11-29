@@ -11,6 +11,7 @@ const ganache = require('ganache-cli');
 // provider is what allows us to connect to a given network, can change from ganache to something else
 const provider = ganache.provider();
 // require in interface
+// THIS IS THE ISSUE WITH RUNNING TEST
 const { abi, evm } = compiledContract;
 // set up instance of web3
 const web3 = new Web3(provider);
